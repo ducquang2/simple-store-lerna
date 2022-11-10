@@ -37,7 +37,7 @@
     "url": "git+https://github.com/ducquang2/simple-store-lerna.git"
   },
   "scripts": {
-    "dev": "node lib/index.js",
+    "dev": "nodemon lib/server.ts",
     "test": "node ./__tests__/backend.test.js"
   },
   "bugs": {
