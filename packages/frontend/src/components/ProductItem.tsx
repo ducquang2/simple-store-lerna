@@ -10,7 +10,7 @@ export default function ProductItem(product: { name: any; id: any; image: any; p
       cache.modify({
         fields: {
           carts(existingCart = []) {
-            console.log(addcart)
+            //console.log(addcart)
             const newCart = cache.writeFragment({
               data: addcart,
               fragment: CartFragmentDoc,
@@ -40,7 +40,7 @@ export default function ProductItem(product: { name: any; id: any; image: any; p
 
   return (
     <div
-      className="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700"
+      className="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 shadow-slate-700"
       key={product?.id}
     >
       <a href="#">
@@ -53,7 +53,7 @@ export default function ProductItem(product: { name: any; id: any; image: any; p
           </h5>
         </a>
         <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{product?.price},000d</p>
-        <div className="relative flex flex-wrap items-center justify-between">
+        <div className="relative flex flex-wrap items-center justify-between gap-1">
           <button
             onClick={() => {
               if (itemCount <= 0) {

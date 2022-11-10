@@ -2,6 +2,9 @@ import { useApolloClient } from '@apollo/client'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useGetProfileQuery } from '../generated'
+import {AiFillHome} from 'react-icons/ai'
+import {FaShoppingCart} from 'react-icons/fa'
+//import './style.css';
 // import Cart from './Cart'
 
 export default function Header() {
@@ -18,10 +21,10 @@ export default function Header() {
   }, [data])
 
   return (
-    <div className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-cyan-500 mb-3">
+    <div className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-blue-800 mb-3">
       <div>
         <Link to="/">
-          <div>Home</div>
+          <div><AiFillHome className='w-8 h-8 text-white'/></div>
         </Link>
       </div>
 
@@ -40,12 +43,12 @@ export default function Header() {
         </div>
       ) : (
         <div className="flex flex-col lg:flex-row list-none lg:ml-auto">
-          <p className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-orange-700">
+          <p className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white">
             Hello, {data?.GetProfile?.username}
           </p>
           <Link to="/cart">
             <p className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white">
-              Cart
+              <FaShoppingCart/>
             </p>
           </Link>
           <Link
@@ -58,7 +61,7 @@ export default function Header() {
               window.location.href = '/'
             }}
           >
-            <p className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-red-600">
+            <p className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white">
               SignOut
             </p>
           </Link>

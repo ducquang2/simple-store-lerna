@@ -11,6 +11,8 @@ import {
 import { Button } from './Button'
 import { Input } from './Input'
 import ProductItem from './ProductItem'
+import {AiOutlineSearch} from 'react-icons/ai'
+import {RiAddFill} from 'react-icons/ri'
 
 export default function ProductList() {
   return (
@@ -68,7 +70,7 @@ function DisplayProduct() {
     newProduct({
       variables: productData,
       update(cache, { data: newproduct }) {
-        console.log(cache.extract())
+        //console.log(cache.extract())
         cache.modify({
           fields: {
             users(existsProduct = []) {
@@ -97,13 +99,15 @@ function DisplayProduct() {
         <label className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300">
           Product Name
         </label>
-        <div className="relative">
+        <div className='flex flex-row gap-1 justify-center'>
           <Input
-            inputClass="block p-4 pl-5 w-full text-sm"
+            className='block '
             inputPlaceholder="Search"
             {...searchInput('name')}
           />
-          <Button buttonText="Search" />
+          <Button>
+          <AiOutlineSearch/>
+          </Button>
         </div>
       </form>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-x-10 xl:grid-cols-4 gap-y-10 gap-x-6 p-4">
@@ -151,7 +155,7 @@ function DisplayProduct() {
                 label="Product price"
                 {...register('price', { valueAsNumber: true })}
               />
-              <Button buttonClass="ml-auto" buttonText="Add Item" />
+              <Button buttonClass="ml-auto">Add Item</Button>
             </form>
           </div>
         ) : (

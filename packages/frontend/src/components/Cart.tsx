@@ -11,7 +11,7 @@ export default function Cart() {
   })
 
   return (
-    <div>
+    <div className='container mx-auto'>
       <h2>Your Cart</h2>
       {loading ? (
         <p>Loading</p>

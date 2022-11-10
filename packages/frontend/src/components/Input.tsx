@@ -12,7 +12,7 @@ type InputProps = React.HTMLAttributes<HTMLInputElement> & {
 const Input = React.forwardRef(
   ({ label, inputClass, inputPlaceholder, containerClass, ...rest }: InputProps, ref: any) => {
     return (
-      <div className={`mb-1 ${containerClass}`}>
+      <div className='w-full ${containerClass}'>
         {!!label && (
           <label className="block mt-2 text-base font-medium text-gray-900 dark:text-gray-300">
             {label}
