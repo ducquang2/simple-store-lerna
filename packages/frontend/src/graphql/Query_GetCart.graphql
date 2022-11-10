@@ -1,0 +1,7 @@
+query GetCart($username: String!) {
+  GetCart(username: $username) {
+    username
+    itemID
+    itemCount
+  }
+}

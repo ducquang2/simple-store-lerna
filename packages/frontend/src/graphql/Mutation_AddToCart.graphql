@@ -1,0 +1,7 @@
+mutation AddToCart($username: String!, $itemID: ID!, $itemCount: Int!) {
+  AddToCart(username: $username, itemID: $itemID, itemCount: $itemCount) {
+    username
+    itemID
+    itemCount
+  }
+}

@@ -1,0 +1,5 @@
+query GetUserInfo($username: String!) {
+  GetUserInfo(username: $username) {
+    isadmin
+  }
+}

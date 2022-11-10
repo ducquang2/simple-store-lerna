@@ -1,0 +1,7 @@
+mutation AddProductItem($name: String!, $image: String!, $price: Int!) {
+  AddProductItem(name: $name, image: $image, price: $price) {
+    name
+    image
+    price
+  }
+}

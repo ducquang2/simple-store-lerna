@@ -1,0 +1,8 @@
+query GetAllProducts {
+  GetAllProducts {
+    id
+    name
+    image
+    price
+  }
+}

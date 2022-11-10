@@ -1,0 +1,7 @@
+mutation RemoveFromCart($username: String!, $itemId: ID!) {
+  RemoveFromCart(username: $username, itemID: $itemId) {
+    username
+    itemID
+    itemCount
+  }
+}
