@@ -1,0 +1,27 @@
+{
+  "name": "backend",
+  "version": "0.0.0",
+  "description": "Graphql  server",
+  "author": "ducquang2 <nducquangg@gmail.com>",
+  "homepage": "https://github.com/ducquang2/simple-store-lerna#readme",
+  "license": "ISC",
+  "main": "lib/index.ts",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ducquang2/simple-store-lerna.git"
+  },
+  "scripts": {
+    "dev": "node lib/index.js",
+    "test": "node ./__tests__/backend.test.js"
+  },
+  "bugs": {
+    "url": "https://github.com/ducquang2/simple-store-lerna/issues"
+  }
+}

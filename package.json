@@ -4,6 +4,10 @@
   "workspaces": [
     "packages/*"
   ],
+  "scripts": {
+    "be": "lerna run dev --scope=backend",
+    "web": "lerna run dev --scope=frontend"
+  },
   "devDependencies": {
     "lerna": "^6.0.3"
   }
