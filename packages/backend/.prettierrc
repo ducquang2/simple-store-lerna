@@ -1,0 +1,20 @@
+{
+    "semi": false,
+    "overrides": [
+      {
+        "files": "./lib/*.json",
+        "options": {
+            "trailingComma": "es5",
+            "tabWidth": 4,
+            "semi": false,
+            "singleQuote": true
+        }
+      },
+      {
+        "files": ["*.html", "legacy/**/*.js"],
+        "options": {
+          "tabWidth": 4
+        }
+      }
+    ]
+  }
