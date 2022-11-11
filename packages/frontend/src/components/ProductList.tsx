@@ -49,8 +49,6 @@ function DisplayProduct() {
     skip: !data?.GetProfile?.id,
   })
 
-  console.log(userData)
-
   const [newProduct] = useAddProductItemMutation()
 
   const { register: searchInput, handleSubmit: handleSearchSubmit } = useForm<IProductSearchInput>()

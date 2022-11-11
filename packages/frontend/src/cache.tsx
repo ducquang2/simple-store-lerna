@@ -1,11 +1,17 @@
 import { makeVar, InMemoryCache } from '@apollo/client'
 
-export const cartItems = makeVar([])
+export const cartItemVar = makeVar([])
 
 export const CustomCache = new InMemoryCache({
   typePolicies: {
-    Cart: {
-      keyFields: ['itemID', 'itemCount'],
+    Query: {
+      fields: {
+        cartItems: {
+          read() {
+            return cartItemVar()
+          },
+        },
+      },
     },
   },
 })

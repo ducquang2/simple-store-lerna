@@ -21,6 +21,11 @@ export type CartItem = {
   itemID?: Maybe<Scalars['ID']>;
 };
 
+export type CartItemInput = {
+  itemCount?: InputMaybe<Scalars['Int']>;
+  itemID?: InputMaybe<Scalars['ID']>;
+};
+
 export type History = {
   __typename?: 'History';
   cartitems?: Maybe<Array<Maybe<CartItem>>>;
@@ -52,9 +57,8 @@ export type MutationAddProductItemArgs = {
 
 
 export type MutationPurchaseArgs = {
-  date?: InputMaybe<Scalars['String']>;
-  itemCount?: InputMaybe<Scalars['Int']>;
-  itemID: Scalars['ID'];
+  cartitems: Array<InputMaybe<CartItemInput>>;
+  date: Scalars['String'];
   userID: Scalars['ID'];
 };
 

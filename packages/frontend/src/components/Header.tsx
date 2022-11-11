@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 import { useGetProfileQuery } from '../generated'
 import { AiFillHome } from 'react-icons/ai'
 import { FaShoppingCart } from 'react-icons/fa'
+import { Button } from './Button'
+import { Cart } from './Cart'
 //import './style.css';
 // import Cart from './Cart'
 
@@ -13,6 +15,12 @@ export default function Header() {
   const client = useApolloClient()
 
   const [loginState, setLoginState] = useState<null | undefined | string>()
+
+  const [cartState, setCartState] = useState(false)
+
+  const onHandleCart = () => {
+    setCartState(!cartState)
+  }
 
   React.useEffect(() => {
     if (localStorage.getItem('token')) {
@@ -48,11 +56,10 @@ export default function Header() {
           <p className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white">
             Hello, {data?.GetProfile?.username}
           </p>
-          <Link to="/">
-            <p className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white">
-              <FaShoppingCart />
-            </p>
-          </Link>
+          <Button onClick={onHandleCart}>
+            <FaShoppingCart className="leading-relaxed whitespace-nowrap uppercase text-white" />
+          </Button>
+          {cartState ? <Cart toggleCart={onHandleCart} /> : ''}
           <Link
             to="/"
             onClick={() => {
@@ -63,7 +70,7 @@ export default function Header() {
               window.location.href = '/'
             }}
           >
-            <p className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white">
+            <p className=" text-sm font-bold leading-relaxed inline-block p-2 whitespace-nowrap uppercase text-white">
               SignOut
             </p>
           </Link>
