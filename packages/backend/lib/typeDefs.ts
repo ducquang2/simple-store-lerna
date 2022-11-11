@@ -23,6 +23,11 @@ const typeDefs = `#graphql
     itemCount: Int
   }
 
+  input CartItemInput {
+    itemID: ID
+    itemCount: Int
+  }
+
   type History {
     userID: ID
     date: String
@@ -42,7 +47,7 @@ const typeDefs = `#graphql
     SearchProductName(name: String!): [Product]
     AddAdmin(userID: ID!): User
     AddProductItem(name: String!, image: String!, price: Int!): Product
-    Purchase(userID: ID!, date: String, itemID: ID!, itemCount: Int): History
+    Purchase(userID: ID!, date: String!, cartitems: [CartItemInput]!): History
   }
 `
 

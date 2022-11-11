@@ -90,11 +90,12 @@ export function resolversFn(db) {
       SearchProductName: async (parent, args, context, info) => {
         const products = await db.getData("/products")
 
-        const exist = products.find((x) =>
+        const exist = products.filter((x) =>
           x.name.toLowerCase().includes(args.name.toLowerCase())
         )
+
         if (exist) {
-          return [exist]
+          return exist
         } else {
           return []
         }
@@ -163,6 +164,32 @@ export function resolversFn(db) {
           return args
         } else {
           throw Error("Item exist")
+        }
+      },
+      Purchase: async (parent, args, context, info) => {
+        const history = await db.getData("/history")
+
+        const exist = history.find((x) => x.userID === args.userID)
+
+        if (!exist) {
+          await db.push("/history", [
+            ...history,
+            {
+              userID: args.userID,
+              purchased: [{ date: args.date, cartitems: args.cartitems }],
+            },
+          ])
+          return args
+        } else {
+          history
+            .find((x) => x.userID === args.userID)
+            .purchased.push({ date: args.date, cartitems: args.cartitems })
+
+          console.log(history)
+
+          await db.push("/history", [...history])
+
+          return args
         }
       },
     },

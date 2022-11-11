@@ -69,5 +69,43 @@
             "id": "5e693443-74ab-48a4-a48d-f5e69265b90e"
         }
     ],
-    "history": []
+    "history": [
+        {
+            "userID": "0a2a51aa-6bb2-4062-b627-e450e9f830d8",
+            "purchased": [
+                {
+                    "date": "test",
+                    "cartitems": [
+                        {
+                            "itemID": "6941114c-a614-472a-b078-72a4d97920a7",
+                            "itemCount": 3
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "userID": "af4be33e-9c32-4992-b6fe-94a3da9355e6",
+            "purchased": [
+                {
+                    "date": "4",
+                    "cartitems": [
+                        {
+                            "itemID": "6941114c-a614-472a-b078-72a4d97920a7",
+                            "itemCount": 3
+                        }
+                    ]
+                },
+                {
+                    "date": "4",
+                    "cartitems": [
+                        {
+                            "itemID": "6941114c-a614-472a-b078-72a4d97920a7",
+                            "itemCount": 3
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
 }
