@@ -1,39 +1,16 @@
 import { useState } from 'react'
-import { CartFragmentDoc, useAddToCartMutation, useGetProfileQuery } from '../generated'
+import { useGetProfileQuery } from '../generated'
 
 export default function ProductItem(product: { name: any; id: any; image: any; price: any }) {
   const { data } = useGetProfileQuery()
   const [itemCount, setItemCount] = useState(0)
-
-  const [addToCart, { error }] = useAddToCartMutation({
-    update(cache, { data: addcart }) {
-      cache.modify({
-        fields: {
-          carts(existingCart = []) {
-            //console.log(addcart)
-            const newCart = cache.writeFragment({
-              data: addcart,
-              fragment: CartFragmentDoc,
-            })
-            return [...existingCart, newCart]
-          },
-        },
-      })
-    },
-  })
 
   const onHandleAddToCart = () => {
     if (localStorage.getItem('token') === null) {
       throw Error('User must logged in')
     } else {
       if (itemCount > 0) {
-        addToCart({
-          variables: {
-            username: data?.GetProfile?.username as string,
-            itemID: product.id,
-            itemCount: itemCount,
-          },
-        })
+        console.log('oke', { itemCount })
       }
     }
   }
@@ -93,7 +70,7 @@ export default function ProductItem(product: { name: any; id: any; image: any; p
             Add to cart
           </button>
         </div>
-        {error && <span className="text-red-500">{error.message}</span>}
+        {/* {error && <span className="text-red-500">{error.message}</span>} */}
       </div>
     </div>
   )

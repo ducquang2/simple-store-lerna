@@ -34,7 +34,9 @@ export default function SignUp() {
       >
         <Input label="Username" {...register('username', { required: true })} />
         <Input label="Password" {...register('password', { required: true })} />
-        <Button buttonText="Create Account" />
+        <Button>
+          <p>Create Account</p>
+        </Button>
       </form>
     </div>
   )

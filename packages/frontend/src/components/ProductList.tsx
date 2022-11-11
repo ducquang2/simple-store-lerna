@@ -11,8 +11,8 @@ import {
 import { Button } from './Button'
 import { Input } from './Input'
 import ProductItem from './ProductItem'
-import {AiOutlineSearch} from 'react-icons/ai'
-import {RiAddFill} from 'react-icons/ri'
+import { AiOutlineSearch } from 'react-icons/ai'
+import { RiAddFill } from 'react-icons/ri'
 
 export default function ProductList() {
   return (
@@ -44,10 +44,12 @@ function DisplayProduct() {
 
   const { data: userData } = useGetUserInfoQuery({
     variables: {
-      username: data?.GetProfile?.username as string,
+      userID: data?.GetProfile?.id as string,
     },
-    skip: !data?.GetProfile?.username,
+    skip: !data?.GetProfile?.id,
   })
+
+  console.log(userData)
 
   const [newProduct] = useAddProductItemMutation()
 
@@ -99,14 +101,10 @@ function DisplayProduct() {
         <label className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300">
           Product Name
         </label>
-        <div className='flex flex-row gap-1 justify-center'>
-          <Input
-            className='block '
-            inputPlaceholder="Search"
-            {...searchInput('name')}
-          />
+        <div className="flex flex-row gap-1 justify-center">
+          <Input className="block " inputPlaceholder="Search" {...searchInput('name')} />
           <Button>
-          <AiOutlineSearch/>
+            <AiOutlineSearch />
           </Button>
         </div>
       </form>

@@ -15,28 +15,32 @@ export type Scalars = {
   Float: number;
 };
 
-export type Cart = {
-  __typename?: 'Cart';
+export type CartItem = {
+  __typename?: 'CartItem';
   itemCount?: Maybe<Scalars['Int']>;
   itemID?: Maybe<Scalars['ID']>;
-  username?: Maybe<Scalars['String']>;
+};
+
+export type History = {
+  __typename?: 'History';
+  cartitems?: Maybe<Array<Maybe<CartItem>>>;
+  date?: Maybe<Scalars['String']>;
+  userID?: Maybe<Scalars['ID']>;
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
   AddAdmin?: Maybe<User>;
   AddProductItem?: Maybe<Product>;
-  AddToCart?: Maybe<Array<Maybe<Cart>>>;
-  RemoveFromCart?: Maybe<Cart>;
+  Purchase?: Maybe<History>;
   SearchProductName?: Maybe<Array<Maybe<Product>>>;
   SignIn?: Maybe<SignIn>;
   SignUp?: Maybe<User>;
-  UpdateItemCountFromCart?: Maybe<Cart>;
 };
 
 
 export type MutationAddAdminArgs = {
-  username: Scalars['String'];
+  userID: Scalars['ID'];
 };
 
 
@@ -47,16 +51,11 @@ export type MutationAddProductItemArgs = {
 };
 
 
-export type MutationAddToCartArgs = {
-  itemCount: Scalars['Int'];
+export type MutationPurchaseArgs = {
+  date?: InputMaybe<Scalars['String']>;
+  itemCount?: InputMaybe<Scalars['Int']>;
   itemID: Scalars['ID'];
-  username: Scalars['String'];
-};
-
-
-export type MutationRemoveFromCartArgs = {
-  itemID: Scalars['ID'];
-  username: Scalars['String'];
+  userID: Scalars['ID'];
 };
 
 
@@ -76,13 +75,6 @@ export type MutationSignUpArgs = {
   username: Scalars['String'];
 };
 
-
-export type MutationUpdateItemCountFromCartArgs = {
-  itemCount: Scalars['Int'];
-  itemID: Scalars['ID'];
-  username: Scalars['String'];
-};
-
 export type Product = {
   __typename?: 'Product';
   id?: Maybe<Scalars['ID']>;
@@ -94,15 +86,9 @@ export type Product = {
 export type Query = {
   __typename?: 'Query';
   GetAllProducts?: Maybe<Array<Maybe<Product>>>;
-  GetCart?: Maybe<Array<Maybe<Cart>>>;
   GetProductWithID?: Maybe<Product>;
   GetProfile?: Maybe<User>;
   GetUserInfo?: Maybe<User>;
-};
-
-
-export type QueryGetCartArgs = {
-  username: Scalars['String'];
 };
 
 
@@ -112,7 +98,7 @@ export type QueryGetProductWithIdArgs = {
 
 
 export type QueryGetUserInfoArgs = {
-  username: Scalars['String'];
+  userID: Scalars['ID'];
 };
 
 export type SignIn = {
@@ -129,8 +115,6 @@ export type User = {
   username?: Maybe<Scalars['String']>;
 };
 
-export type CartFragment = { __typename?: 'Cart', username?: string | null, itemID?: string | null, itemCount?: number | null };
-
 export type ProductFragment = { __typename?: 'Product', name?: string | null, image?: string | null, price?: number | null };
 
 export type UserFragment = { __typename?: 'User', username?: string | null };
@@ -144,15 +128,6 @@ export type AddProductItemMutationVariables = Exact<{
 
 export type AddProductItemMutation = { __typename?: 'Mutation', AddProductItem?: { __typename?: 'Product', name?: string | null, image?: string | null, price?: number | null } | null };
 
-export type AddToCartMutationVariables = Exact<{
-  username: Scalars['String'];
-  itemID: Scalars['ID'];
-  itemCount: Scalars['Int'];
-}>;
-
-
-export type AddToCartMutation = { __typename?: 'Mutation', AddToCart?: Array<{ __typename?: 'Cart', username?: string | null, itemID?: string | null, itemCount?: number | null } | null> | null };
-
 export type LoginMutationVariables = Exact<{
   username: Scalars['String'];
   password: Scalars['String'];
@@ -160,14 +135,6 @@ export type LoginMutationVariables = Exact<{
 
 
 export type LoginMutation = { __typename?: 'Mutation', SignIn?: { __typename?: 'SignIn', token?: string | null, user?: { __typename?: 'User', username?: string | null } | null } | null };
-
-export type RemoveFromCartMutationVariables = Exact<{
-  username: Scalars['String'];
-  itemId: Scalars['ID'];
-}>;
-
-
-export type RemoveFromCartMutation = { __typename?: 'Mutation', RemoveFromCart?: { __typename?: 'Cart', username?: string | null, itemID?: string | null, itemCount?: number | null } | null };
 
 export type SearchProductNameMutationVariables = Exact<{
   name: Scalars['String'];
@@ -184,26 +151,10 @@ export type SignUpMutationVariables = Exact<{
 
 export type SignUpMutation = { __typename?: 'Mutation', SignUp?: { __typename?: 'User', username?: string | null } | null };
 
-export type UpdateItemCountFromCartMutationVariables = Exact<{
-  username: Scalars['String'];
-  itemId: Scalars['ID'];
-  itemCount: Scalars['Int'];
-}>;
-
-
-export type UpdateItemCountFromCartMutation = { __typename?: 'Mutation', UpdateItemCountFromCart?: { __typename?: 'Cart', username?: string | null, itemID?: string | null, itemCount?: number | null } | null };
-
 export type GetAllProductsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetAllProductsQuery = { __typename?: 'Query', GetAllProducts?: Array<{ __typename?: 'Product', id?: string | null, name?: string | null, image?: string | null, price?: number | null } | null> | null };
-
-export type GetCartQueryVariables = Exact<{
-  username: Scalars['String'];
-}>;
-
-
-export type GetCartQuery = { __typename?: 'Query', GetCart?: Array<{ __typename?: 'Cart', username?: string | null, itemID?: string | null, itemCount?: number | null } | null> | null };
 
 export type GetProductWithIdQueryVariables = Exact<{
   id: Scalars['ID'];
@@ -218,19 +169,12 @@ export type GetProfileQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetProfileQuery = { __typename?: 'Query', GetProfile?: { __typename?: 'User', id?: string | null, username?: string | null } | null };
 
 export type GetUserInfoQueryVariables = Exact<{
-  username: Scalars['String'];
+  userID: Scalars['ID'];
 }>;
 
 
 export type GetUserInfoQuery = { __typename?: 'Query', GetUserInfo?: { __typename?: 'User', isadmin?: boolean | null } | null };
 
-export const CartFragmentDoc = gql`
-    fragment Cart on Cart {
-  username
-  itemID
-  itemCount
-}
-    `;
 export const ProductFragmentDoc = gql`
     fragment Product on Product {
   name
@@ -280,43 +224,6 @@ export function useAddProductItemMutation(baseOptions?: Apollo.MutationHookOptio
 export type AddProductItemMutationHookResult = ReturnType<typeof useAddProductItemMutation>;
 export type AddProductItemMutationResult = Apollo.MutationResult<AddProductItemMutation>;
 export type AddProductItemMutationOptions = Apollo.BaseMutationOptions<AddProductItemMutation, AddProductItemMutationVariables>;
-export const AddToCartDocument = gql`
-    mutation AddToCart($username: String!, $itemID: ID!, $itemCount: Int!) {
-  AddToCart(username: $username, itemID: $itemID, itemCount: $itemCount) {
-    username
-    itemID
-    itemCount
-  }
-}
-    `;
-export type AddToCartMutationFn = Apollo.MutationFunction<AddToCartMutation, AddToCartMutationVariables>;
-
-/**
- * __useAddToCartMutation__
- *
- * To run a mutation, you first call `useAddToCartMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useAddToCartMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [addToCartMutation, { data, loading, error }] = useAddToCartMutation({
- *   variables: {
- *      username: // value for 'username'
- *      itemID: // value for 'itemID'
- *      itemCount: // value for 'itemCount'
- *   },
- * });
- */
-export function useAddToCartMutation(baseOptions?: Apollo.MutationHookOptions<AddToCartMutation, AddToCartMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<AddToCartMutation, AddToCartMutationVariables>(AddToCartDocument, options);
-      }
-export type AddToCartMutationHookResult = ReturnType<typeof useAddToCartMutation>;
-export type AddToCartMutationResult = Apollo.MutationResult<AddToCartMutation>;
-export type AddToCartMutationOptions = Apollo.BaseMutationOptions<AddToCartMutation, AddToCartMutationVariables>;
 export const LoginDocument = gql`
     mutation Login($username: String!, $password: String!) {
   SignIn(username: $username, password: $password) {
@@ -354,42 +261,6 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
-export const RemoveFromCartDocument = gql`
-    mutation RemoveFromCart($username: String!, $itemId: ID!) {
-  RemoveFromCart(username: $username, itemID: $itemId) {
-    username
-    itemID
-    itemCount
-  }
-}
-    `;
-export type RemoveFromCartMutationFn = Apollo.MutationFunction<RemoveFromCartMutation, RemoveFromCartMutationVariables>;
-
-/**
- * __useRemoveFromCartMutation__
- *
- * To run a mutation, you first call `useRemoveFromCartMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useRemoveFromCartMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [removeFromCartMutation, { data, loading, error }] = useRemoveFromCartMutation({
- *   variables: {
- *      username: // value for 'username'
- *      itemId: // value for 'itemId'
- *   },
- * });
- */
-export function useRemoveFromCartMutation(baseOptions?: Apollo.MutationHookOptions<RemoveFromCartMutation, RemoveFromCartMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<RemoveFromCartMutation, RemoveFromCartMutationVariables>(RemoveFromCartDocument, options);
-      }
-export type RemoveFromCartMutationHookResult = ReturnType<typeof useRemoveFromCartMutation>;
-export type RemoveFromCartMutationResult = Apollo.MutationResult<RemoveFromCartMutation>;
-export type RemoveFromCartMutationOptions = Apollo.BaseMutationOptions<RemoveFromCartMutation, RemoveFromCartMutationVariables>;
 export const SearchProductNameDocument = gql`
     mutation SearchProductName($name: String!) {
   SearchProductName(name: $name) {
@@ -460,47 +331,6 @@ export function useSignUpMutation(baseOptions?: Apollo.MutationHookOptions<SignU
 export type SignUpMutationHookResult = ReturnType<typeof useSignUpMutation>;
 export type SignUpMutationResult = Apollo.MutationResult<SignUpMutation>;
 export type SignUpMutationOptions = Apollo.BaseMutationOptions<SignUpMutation, SignUpMutationVariables>;
-export const UpdateItemCountFromCartDocument = gql`
-    mutation UpdateItemCountFromCart($username: String!, $itemId: ID!, $itemCount: Int!) {
-  UpdateItemCountFromCart(
-    username: $username
-    itemID: $itemId
-    itemCount: $itemCount
-  ) {
-    username
-    itemID
-    itemCount
-  }
-}
-    `;
-export type UpdateItemCountFromCartMutationFn = Apollo.MutationFunction<UpdateItemCountFromCartMutation, UpdateItemCountFromCartMutationVariables>;
-
-/**
- * __useUpdateItemCountFromCartMutation__
- *
- * To run a mutation, you first call `useUpdateItemCountFromCartMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateItemCountFromCartMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateItemCountFromCartMutation, { data, loading, error }] = useUpdateItemCountFromCartMutation({
- *   variables: {
- *      username: // value for 'username'
- *      itemId: // value for 'itemId'
- *      itemCount: // value for 'itemCount'
- *   },
- * });
- */
-export function useUpdateItemCountFromCartMutation(baseOptions?: Apollo.MutationHookOptions<UpdateItemCountFromCartMutation, UpdateItemCountFromCartMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateItemCountFromCartMutation, UpdateItemCountFromCartMutationVariables>(UpdateItemCountFromCartDocument, options);
-      }
-export type UpdateItemCountFromCartMutationHookResult = ReturnType<typeof useUpdateItemCountFromCartMutation>;
-export type UpdateItemCountFromCartMutationResult = Apollo.MutationResult<UpdateItemCountFromCartMutation>;
-export type UpdateItemCountFromCartMutationOptions = Apollo.BaseMutationOptions<UpdateItemCountFromCartMutation, UpdateItemCountFromCartMutationVariables>;
 export const GetAllProductsDocument = gql`
     query GetAllProducts {
   GetAllProducts {
@@ -538,43 +368,6 @@ export function useGetAllProductsLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type GetAllProductsQueryHookResult = ReturnType<typeof useGetAllProductsQuery>;
 export type GetAllProductsLazyQueryHookResult = ReturnType<typeof useGetAllProductsLazyQuery>;
 export type GetAllProductsQueryResult = Apollo.QueryResult<GetAllProductsQuery, GetAllProductsQueryVariables>;
-export const GetCartDocument = gql`
-    query GetCart($username: String!) {
-  GetCart(username: $username) {
-    username
-    itemID
-    itemCount
-  }
-}
-    `;
-
-/**
- * __useGetCartQuery__
- *
- * To run a query within a React component, call `useGetCartQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetCartQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetCartQuery({
- *   variables: {
- *      username: // value for 'username'
- *   },
- * });
- */
-export function useGetCartQuery(baseOptions: Apollo.QueryHookOptions<GetCartQuery, GetCartQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetCartQuery, GetCartQueryVariables>(GetCartDocument, options);
-      }
-export function useGetCartLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCartQuery, GetCartQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetCartQuery, GetCartQueryVariables>(GetCartDocument, options);
-        }
-export type GetCartQueryHookResult = ReturnType<typeof useGetCartQuery>;
-export type GetCartLazyQueryHookResult = ReturnType<typeof useGetCartLazyQuery>;
-export type GetCartQueryResult = Apollo.QueryResult<GetCartQuery, GetCartQueryVariables>;
 export const GetProductWithIdDocument = gql`
     query GetProductWithID($id: ID!) {
   GetProductWithID(id: $id) {
@@ -649,8 +442,8 @@ export type GetProfileQueryHookResult = ReturnType<typeof useGetProfileQuery>;
 export type GetProfileLazyQueryHookResult = ReturnType<typeof useGetProfileLazyQuery>;
 export type GetProfileQueryResult = Apollo.QueryResult<GetProfileQuery, GetProfileQueryVariables>;
 export const GetUserInfoDocument = gql`
-    query GetUserInfo($username: String!) {
-  GetUserInfo(username: $username) {
+    query GetUserInfo($userID: ID!) {
+  GetUserInfo(userID: $userID) {
     isadmin
   }
 }
@@ -668,7 +461,7 @@ export const GetUserInfoDocument = gql`
  * @example
  * const { data, loading, error } = useGetUserInfoQuery({
  *   variables: {
- *      username: // value for 'username'
+ *      userID: // value for 'userID'
  *   },
  * });
  */

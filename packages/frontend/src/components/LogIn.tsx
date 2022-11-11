@@ -40,7 +40,9 @@ export default function LogIn() {
       >
         <Input label="Username" {...register('username', { required: true })} />
         <Input label="Password" {...register('password', { required: true })} />
-        <Button buttonText="LogIn" />
+        <Button>
+          <p>Login</p>
+        </Button>
       </form>
     </div>
   )

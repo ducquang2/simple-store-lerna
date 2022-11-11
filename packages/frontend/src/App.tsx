@@ -2,11 +2,11 @@ import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/c
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { setContext } from '@apollo/client/link/context'
 import React from 'react'
-import Cart from './components/Cart'
 import Header from './components/Header'
 import LogIn from './components/LogIn'
 import Product from './components/ProductList'
 import SignUp from './components/SignUp'
+import { CustomCache } from './cache'
 
 const link = new HttpLink({
   uri: 'http://localhost:4000/',
@@ -26,7 +26,7 @@ const authLink = setContext((_, { headers }) => {
 
 const client = new ApolloClient({
   link: authLink.concat(link),
-  cache: new InMemoryCache(),
+  cache: CustomCache,
 })
 
 function App() {
@@ -39,7 +39,6 @@ function App() {
             <Route path="/" element={<Product />} />
             <Route path="/signin" element={<LogIn />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/cart" element={<Cart />} />
           </Routes>
         </BrowserRouter>
       </ApolloProvider>

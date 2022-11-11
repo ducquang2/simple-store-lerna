@@ -2,8 +2,8 @@ import { useApolloClient } from '@apollo/client'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useGetProfileQuery } from '../generated'
-import {AiFillHome} from 'react-icons/ai'
-import {FaShoppingCart} from 'react-icons/fa'
+import { AiFillHome } from 'react-icons/ai'
+import { FaShoppingCart } from 'react-icons/fa'
 //import './style.css';
 // import Cart from './Cart'
 
@@ -24,7 +24,9 @@ export default function Header() {
     <div className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-blue-800 mb-3">
       <div>
         <Link to="/">
-          <div><AiFillHome className='w-8 h-8 text-white'/></div>
+          <div>
+            <AiFillHome className="w-8 h-8 text-white" />
+          </div>
         </Link>
       </div>
 
@@ -46,9 +48,9 @@ export default function Header() {
           <p className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white">
             Hello, {data?.GetProfile?.username}
           </p>
-          <Link to="/cart">
+          <Link to="/">
             <p className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white">
-              <FaShoppingCart/>
+              <FaShoppingCart />
             </p>
           </Link>
           <Link
