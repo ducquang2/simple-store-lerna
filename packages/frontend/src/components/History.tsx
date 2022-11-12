@@ -14,8 +14,8 @@ function History({}: HistoryProps) {
   })
 
   return (
-    <div>
-      <h3>History</h3>
+    <div className="mt-6">
+      <h3 className='"mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"'>History</h3>
       <div>
         {(data?.GetUserHistory || []).map((cart) => (
           <div key={cart?.date}>

@@ -4,26 +4,25 @@ import { cartItemVar } from '../cache'
 import { useGetProfileQuery } from '../generated'
 import { Button } from './Button'
 
+type cartItemType = {
+  itemID: string
+  itemCount: number
+}
+
 export default function ProductItem(product: { name: any; id: any; image: any; price: any }) {
   const { data } = useGetProfileQuery()
   const [itemCount, setItemCount] = useState(0)
 
-  const cartItems = useReactiveVar(cartItemVar)
+  const cartItems: cartItemType[] = useReactiveVar(cartItemVar)
 
-  // let isInCart = cartItems.find((item: any) => {
-  //   item.itemID === product.id
-  // })
-
-  const onHandleAddToCart = () => {
+  const onHandleAddToCart = (id: string) => {
     if (!data?.GetProfile?.id) {
       throw Error('User must logged in')
     } else {
       if (itemCount > 0) {
+        let exist = cartItems.find((item) => item.itemID === id)
         cartItemVar(
-          // isInCart
-          // ?
-          [...cartItems, { itemID: product.id, itemCount: itemCount }]
-          // : [{ itemID: product.id, itemCount: itemCount }]
+          !exist ? [...cartItems, { itemID: product.id, itemCount: itemCount }] : cartItems
         )
       }
     }
@@ -75,7 +74,7 @@ export default function ProductItem(product: { name: any; id: any; image: any; p
             +
           </Button>
           <Button
-            onClick={onHandleAddToCart}
+            onClick={() => onHandleAddToCart(product.id)}
             buttonClass="flex flex-col lg:flex-row list-none lg:ml-auto py-2 px-3 text-sm font-medium text-center ml-auto"
           >
             Add to cart

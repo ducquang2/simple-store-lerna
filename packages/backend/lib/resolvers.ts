@@ -16,20 +16,6 @@ export function resolversFn(db) {
       GetAllProducts: async () => {
         return db.getData("/products")
       },
-      // GetCart: async (parent, args, context, info) => {
-      //   const carts = await db.getData("/carts")
-
-      //   const exist = carts.filter(
-      //     (x) => x.username.toLowerCase() === args.username.toLowerCase()
-      //   )
-
-      //   if (exist) {
-      //     return exist
-      //   } else {
-      //     return []
-      //   }
-      // },
-      // GetCartItems: (obj, args, context, info) => result,
       GetProductWithID: async (parent, args, context, info) => {
         const carts = await db.getData("/products")
 

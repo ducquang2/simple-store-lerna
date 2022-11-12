@@ -74,60 +74,15 @@
             "userID": "0a2a51aa-6bb2-4062-b627-e450e9f830d8",
             "purchased": [
                 {
-                    "date": "1/11/2022",
+                    "date": "Sat Nov 12 2022 11:32:34 GMT+0700 (Indochina Time)",
                     "cartitems": [
                         {
-                            "itemID": "6941114c-a614-472a-b078-72a4d97920a7",
-                            "itemCount": 3
-                        }
-                    ]
-                },
-                {
-                    "date": "2/11/2022",
-                    "cartitems": [
-                        {
-                            "itemID": "962eceec-e813-4061-b5b2-ef38fdeee8ff",
-                            "itemCount": 11
+                            "itemID": "1640c8b4-11f5-4ec4-aa89-eb626935a431",
+                            "itemCount": 2
                         },
                         {
-                            "itemID": "90922dcd-4805-483d-865f-0f738b2ac30f",
-                            "itemCount": 21
-                        }
-                    ]
-                },
-                {
-                    "date": "3/11/2022",
-                    "cartitems": [
-                        {
-                            "itemID": "6941114c-a614-472a-b078-72a4d97920a7",
-                            "itemCount": 5
-                        },
-                        {
-                            "itemID": "5e693443-74ab-48a4-a48d-f5e69265b90e",
-                            "itemCount": 4
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "userID": "af4be33e-9c32-4992-b6fe-94a3da9355e6",
-            "purchased": [
-                {
-                    "date": "4",
-                    "cartitems": [
-                        {
-                            "itemID": "6941114c-a614-472a-b078-72a4d97920a7",
-                            "itemCount": 3
-                        }
-                    ]
-                },
-                {
-                    "date": "4",
-                    "cartitems": [
-                        {
-                            "itemID": "6941114c-a614-472a-b078-72a4d97920a7",
-                            "itemCount": 3
+                            "itemID": "bbb5de5a-9f48-4a40-acae-d3cc1be25abf",
+                            "itemCount": 2
                         }
                     ]
                 }

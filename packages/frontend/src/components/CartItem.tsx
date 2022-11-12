@@ -27,13 +27,10 @@ function CartItem({ itemID, itemCount }: CartItemProps) {
     cartItemVar(cartItems.filter((item) => item.itemID !== itemID))
   }
 
-  const onHandleChangeItem = () => {
-    let test = cartItems.filter((item) => item.itemID !== itemID)
+  const onHandleChangeItem = (id: string, count: number) => {
+    let item = cartItems.filter((item) => item.itemID !== itemID)
 
-    // let a = (cartItems.find((item) => item.itemID === itemID).itemCount = cartChange.count)
-    // cartItemVar([...cartItems.filter((item) => item.itemID !== itemID), a])
-    cartItemVar([...test, { itemID: itemID, itemCount: cartChange.count }])
-
+    cartItemVar(item ? [{ itemID: id, itemCount: count }, ...item] : cartItems)
     console.log(cartItems)
   }
 
@@ -93,7 +90,7 @@ function CartItem({ itemID, itemCount }: CartItemProps) {
             }}
           ></input>
           <Button onClick={() => setCartChange(cartChange + 1)}>+</Button>
-          <Button onClick={onHandleChangeItem}>Changed</Button>
+          <Button onClick={() => onHandleChangeItem(itemID, cartChange)}>Changed</Button>
 
           {/* <Button>Changed</Button> */}
         </div>

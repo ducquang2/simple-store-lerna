@@ -18,11 +18,13 @@ const Cart = ({ toggleCart }: CartProps) => {
 
   const [purchase, { data }] = usePurchaseMutation()
 
+  const date = new Date()
+
   const onHandleCheckOut = () => {
     purchase({
       variables: {
         userId: userData?.GetProfile?.id as string,
-        date: 'ngay',
+        date: date.toString(),
         cartitems: cartData.cartItems,
       },
     })
@@ -33,7 +35,7 @@ const Cart = ({ toggleCart }: CartProps) => {
   if (error) return <p>error: ${error.message}</p>
 
   return (
-    <div className="fixed w-full z-30 top-0 left-0 md:inset-0 md:h-full overflow-y-auto">
+    <div className="fixed w-full z-20 top-0 left-0 md:inset-0 md:h-full overflow-y-auto">
       <div className="relative p-4 w-full max-w-2xl h-full md:h-auto ml-auto ">
         <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 ">
           <div className="flex justify-between items-start p-4 rounded-t border-b dark:border-gray-600">
@@ -41,19 +43,29 @@ const Cart = ({ toggleCart }: CartProps) => {
             {cartData && cartData.cartItems.length === 0 ? (
               ''
             ) : (
-              <Button buttonClass="ml-auto" onClick={onHandleCheckOut}>
-                Checkout
-              </Button>
+              <>
+                <Button buttonClass="ml-auto" onClick={onHandleCheckOut}>
+                  Checkout
+                </Button>
+                <Button
+                  buttonClass="inline-flex py-2 px-3 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800 ml-auto"
+                  onClick={() => cartItemVar([])}
+                >
+                  Remove All
+                </Button>
+              </>
             )}
             <Button
               onClick={toggleCart}
-              buttonClass="rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+              buttonClass="inline-flex py-2 px-3 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800 ml-auto"
             >
               <p>X</p>
             </Button>
           </div>
           {cartData && cartData.cartItems.length === 0 ? (
-            <p>No items</p>
+            <p className="text-base font-bold tracking-tight text-gray-900 dark:text-white text-center">
+              No items
+            </p>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-10 gap-y-10 gap-x-6 p-4">
               {(cartData?.cartItems || []).map((item: any) => (
