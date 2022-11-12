@@ -1,3 +1,0 @@
-query GetCartItems {
-  cartItems @client
-}

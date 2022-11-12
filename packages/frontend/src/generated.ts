@@ -132,6 +132,15 @@ export type AddProductItemMutationVariables = Exact<{
 
 export type AddProductItemMutation = { __typename?: 'Mutation', AddProductItem?: { __typename?: 'Product', name?: string | null, image?: string | null, price?: number | null } | null };
 
+export type PurchaseMutationVariables = Exact<{
+  userId: Scalars['ID'];
+  date: Scalars['String'];
+  cartitems: Array<InputMaybe<CartItemInput>> | InputMaybe<CartItemInput>;
+}>;
+
+
+export type PurchaseMutation = { __typename?: 'Mutation', Purchase?: { __typename?: 'History', date?: string | null, cartitems?: Array<{ __typename?: 'CartItem', itemID?: string | null, itemCount?: number | null } | null> | null } | null };
+
 export type LoginMutationVariables = Exact<{
   username: Scalars['String'];
   password: Scalars['String'];
@@ -228,6 +237,45 @@ export function useAddProductItemMutation(baseOptions?: Apollo.MutationHookOptio
 export type AddProductItemMutationHookResult = ReturnType<typeof useAddProductItemMutation>;
 export type AddProductItemMutationResult = Apollo.MutationResult<AddProductItemMutation>;
 export type AddProductItemMutationOptions = Apollo.BaseMutationOptions<AddProductItemMutation, AddProductItemMutationVariables>;
+export const PurchaseDocument = gql`
+    mutation Purchase($userId: ID!, $date: String!, $cartitems: [CartItemInput]!) {
+  Purchase(userID: $userId, date: $date, cartitems: $cartitems) {
+    date
+    cartitems {
+      itemID
+      itemCount
+    }
+  }
+}
+    `;
+export type PurchaseMutationFn = Apollo.MutationFunction<PurchaseMutation, PurchaseMutationVariables>;
+
+/**
+ * __usePurchaseMutation__
+ *
+ * To run a mutation, you first call `usePurchaseMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `usePurchaseMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [purchaseMutation, { data, loading, error }] = usePurchaseMutation({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *      date: // value for 'date'
+ *      cartitems: // value for 'cartitems'
+ *   },
+ * });
+ */
+export function usePurchaseMutation(baseOptions?: Apollo.MutationHookOptions<PurchaseMutation, PurchaseMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<PurchaseMutation, PurchaseMutationVariables>(PurchaseDocument, options);
+      }
+export type PurchaseMutationHookResult = ReturnType<typeof usePurchaseMutation>;
+export type PurchaseMutationResult = Apollo.MutationResult<PurchaseMutation>;
+export type PurchaseMutationOptions = Apollo.BaseMutationOptions<PurchaseMutation, PurchaseMutationVariables>;
 export const LoginDocument = gql`
     mutation Login($username: String!, $password: String!) {
   SignIn(username: $username, password: $password) {

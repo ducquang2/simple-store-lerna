@@ -1,6 +1,8 @@
-import { useQuery } from '@apollo/client'
+import { useQuery, useReactiveVar } from '@apollo/client'
 import React from 'react'
 import { GetCartItems } from '../App'
+import { cartItemVar } from '../cache'
+import { useGetProfileQuery, usePurchaseMutation } from '../generated'
 import { Button } from './Button'
 import { CartItem } from './CartItem'
 
@@ -11,7 +13,25 @@ type CartProps = {
 }
 
 const Cart = ({ toggleCart }: CartProps) => {
-  const { data, loading, error } = useQuery(GetCartItems)
+  const { data: userData } = useGetProfileQuery()
+  const { data: cartData, loading, error } = useQuery(GetCartItems)
+
+  const cartItems = useReactiveVar(cartItemVar)
+
+  const [purchase, { data }] = usePurchaseMutation()
+
+  const onHandleCheckOut = () => {
+    console.log('checkout')
+
+    purchase({
+      variables: {
+        userId: userData?.GetProfile?.id as string,
+        date: 'ngay',
+        cartitems: cartData.cartItems,
+      },
+    })
+    cartItemVar([])
+  }
 
   if (loading) return <p>loading cart</p>
   if (error) return <p>error: ${error.message}</p>
@@ -23,7 +43,7 @@ const Cart = ({ toggleCart }: CartProps) => {
         <Button onClick={toggleCart}>
           <p>X</p>
         </Button>
-        {data && data.cartItems.length === 0 ? (
+        {cartData && cartData.cartItems.length === 0 ? (
           <p>No items</p>
         ) : (
           // <ul>
@@ -34,15 +54,17 @@ const Cart = ({ toggleCart }: CartProps) => {
           //       </li>
           //     ))}
           // </ul>
-          <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-10 gap-y-10 gap-x-6 p-4">
-            {(data?.cartItems || []).map((item: any) => (
-              <CartItem
-                itemID={item?.itemID || ''}
-                itemCount={item?.itemCount || 0}
-                key={item?.itemID}
-              />
-            ))}
-            <Button>Checkout</Button>
+          <div>
+            <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-10 gap-y-10 gap-x-6 p-4">
+              {(cartData?.cartItems || []).map((item: any) => (
+                <CartItem
+                  itemID={item?.itemID || ''}
+                  itemCount={item?.itemCount || 0}
+                  key={item?.itemID}
+                />
+              ))}
+            </div>
+            <Button onClick={onHandleCheckOut}>Checkout</Button>
           </div>
         )}
       </div>
