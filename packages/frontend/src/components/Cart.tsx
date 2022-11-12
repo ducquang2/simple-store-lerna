@@ -1,4 +1,4 @@
-import { useQuery, useReactiveVar } from '@apollo/client'
+import { useApolloClient, useQuery } from '@apollo/client'
 import React from 'react'
 import { GetCartItems } from '../App'
 import { cartItemVar } from '../cache'
@@ -16,13 +16,9 @@ const Cart = ({ toggleCart }: CartProps) => {
   const { data: userData } = useGetProfileQuery()
   const { data: cartData, loading, error } = useQuery(GetCartItems)
 
-  const cartItems = useReactiveVar(cartItemVar)
-
   const [purchase, { data }] = usePurchaseMutation()
 
   const onHandleCheckOut = () => {
-    console.log('checkout')
-
     purchase({
       variables: {
         userId: userData?.GetProfile?.id as string,
@@ -46,14 +42,6 @@ const Cart = ({ toggleCart }: CartProps) => {
         {cartData && cartData.cartItems.length === 0 ? (
           <p>No items</p>
         ) : (
-          // <ul>
-          //   {data &&
-          //     data.cartItems.map((item: any) => (
-          //       <li key={item.itemID}>
-          //         {item.itemID} & {item.itemCount}
-          //       </li>
-          //     ))}
-          // </ul>
           <div>
             <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-10 gap-y-10 gap-x-6 p-4">
               {(cartData?.cartItems || []).map((item: any) => (

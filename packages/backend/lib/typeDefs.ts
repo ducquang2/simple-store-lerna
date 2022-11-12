@@ -28,8 +28,7 @@ const typeDefs = `#graphql
     itemCount: Int
   }
 
-  type History {
-    userID: ID
+  type PurchaseItem {
     date: String
     cartitems: [CartItem]
   }
@@ -39,7 +38,7 @@ const typeDefs = `#graphql
     GetAllProducts: [Product]
     GetProductWithID(id: ID!): Product
     GetUserInfo(userID: ID!): User
-    
+    GetUserHistory(userID: ID!): [PurchaseItem]
   }
   
   type Mutation {
@@ -48,7 +47,7 @@ const typeDefs = `#graphql
     SearchProductName(name: String!): [Product]
     AddAdmin(userID: ID!): User
     AddProductItem(name: String!, image: String!, price: Int!): Product
-    Purchase(userID: ID!, date: String!, cartitems: [CartItemInput]!): History
+    Purchase(userID: ID!, date: String!, cartitems: [CartItemInput]!): PurchaseItem
   }
 `
 

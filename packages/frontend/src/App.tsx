@@ -7,6 +7,7 @@ import LogIn from './components/LogIn'
 import Product from './components/ProductList'
 import SignUp from './components/SignUp'
 import { CustomCache } from './cache'
+import { History } from './components/History'
 
 const link = new HttpLink({
   uri: 'http://localhost:4000/',
@@ -53,6 +54,7 @@ function App() {
             <Route path="/" element={<Product />} />
             <Route path="/signin" element={<LogIn />} />
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/history" element={<History />} />
           </Routes>
         </BrowserRouter>
       </ApolloProvider>

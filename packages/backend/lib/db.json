@@ -74,7 +74,7 @@
             "userID": "0a2a51aa-6bb2-4062-b627-e450e9f830d8",
             "purchased": [
                 {
-                    "date": "test",
+                    "date": "1/11/2022",
                     "cartitems": [
                         {
                             "itemID": "6941114c-a614-472a-b078-72a4d97920a7",
@@ -83,7 +83,7 @@
                     ]
                 },
                 {
-                    "date": "ngay",
+                    "date": "2/11/2022",
                     "cartitems": [
                         {
                             "itemID": "962eceec-e813-4061-b5b2-ef38fdeee8ff",
@@ -96,7 +96,7 @@
                     ]
                 },
                 {
-                    "date": "ngay",
+                    "date": "3/11/2022",
                     "cartitems": [
                         {
                             "itemID": "6941114c-a614-472a-b078-72a4d97920a7",

@@ -52,6 +52,17 @@ export function resolversFn(db) {
           return null
         }
       },
+      GetUserHistory: async (parent, args, context, info) => {
+        const allhistory = await db.getData("/history")
+
+        const exist = allhistory.find((x) => x.userID === args.userID)
+
+        if (exist) {
+          return exist.purchased
+        } else {
+          return []
+        }
+      },
     },
     Mutation: {
       SignIn: async (parent, args, context, info) => {

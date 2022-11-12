@@ -26,18 +26,11 @@ export type CartItemInput = {
   itemID?: InputMaybe<Scalars['ID']>;
 };
 
-export type History = {
-  __typename?: 'History';
-  cartitems?: Maybe<Array<Maybe<CartItem>>>;
-  date?: Maybe<Scalars['String']>;
-  userID?: Maybe<Scalars['ID']>;
-};
-
 export type Mutation = {
   __typename?: 'Mutation';
   AddAdmin?: Maybe<User>;
   AddProductItem?: Maybe<Product>;
-  Purchase?: Maybe<History>;
+  Purchase?: Maybe<PurchaseItem>;
   SearchProductName?: Maybe<Array<Maybe<Product>>>;
   SignIn?: Maybe<SignIn>;
   SignUp?: Maybe<User>;
@@ -87,17 +80,29 @@ export type Product = {
   price?: Maybe<Scalars['Int']>;
 };
 
+export type PurchaseItem = {
+  __typename?: 'PurchaseItem';
+  cartitems?: Maybe<Array<Maybe<CartItem>>>;
+  date?: Maybe<Scalars['String']>;
+};
+
 export type Query = {
   __typename?: 'Query';
   GetAllProducts?: Maybe<Array<Maybe<Product>>>;
   GetProductWithID?: Maybe<Product>;
   GetProfile?: Maybe<User>;
+  GetUserHistory?: Maybe<Array<Maybe<PurchaseItem>>>;
   GetUserInfo?: Maybe<User>;
 };
 
 
 export type QueryGetProductWithIdArgs = {
   id: Scalars['ID'];
+};
+
+
+export type QueryGetUserHistoryArgs = {
+  userID: Scalars['ID'];
 };
 
 
@@ -139,7 +144,7 @@ export type PurchaseMutationVariables = Exact<{
 }>;
 
 
-export type PurchaseMutation = { __typename?: 'Mutation', Purchase?: { __typename?: 'History', date?: string | null, cartitems?: Array<{ __typename?: 'CartItem', itemID?: string | null, itemCount?: number | null } | null> | null } | null };
+export type PurchaseMutation = { __typename?: 'Mutation', Purchase?: { __typename?: 'PurchaseItem', date?: string | null, cartitems?: Array<{ __typename?: 'CartItem', itemID?: string | null, itemCount?: number | null } | null> | null } | null };
 
 export type LoginMutationVariables = Exact<{
   username: Scalars['String'];
@@ -180,6 +185,13 @@ export type GetProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetProfileQuery = { __typename?: 'Query', GetProfile?: { __typename?: 'User', id?: string | null, username?: string | null } | null };
+
+export type GetUserHistoryQueryVariables = Exact<{
+  userId: Scalars['ID'];
+}>;
+
+
+export type GetUserHistoryQuery = { __typename?: 'Query', GetUserHistory?: Array<{ __typename?: 'PurchaseItem', date?: string | null, cartitems?: Array<{ __typename?: 'CartItem', itemCount?: number | null, itemID?: string | null } | null> | null } | null> | null };
 
 export type GetUserInfoQueryVariables = Exact<{
   userID: Scalars['ID'];
@@ -493,6 +505,45 @@ export function useGetProfileLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type GetProfileQueryHookResult = ReturnType<typeof useGetProfileQuery>;
 export type GetProfileLazyQueryHookResult = ReturnType<typeof useGetProfileLazyQuery>;
 export type GetProfileQueryResult = Apollo.QueryResult<GetProfileQuery, GetProfileQueryVariables>;
+export const GetUserHistoryDocument = gql`
+    query GetUserHistory($userId: ID!) {
+  GetUserHistory(userID: $userId) {
+    date
+    cartitems {
+      itemCount
+      itemID
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetUserHistoryQuery__
+ *
+ * To run a query within a React component, call `useGetUserHistoryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserHistoryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserHistoryQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useGetUserHistoryQuery(baseOptions: Apollo.QueryHookOptions<GetUserHistoryQuery, GetUserHistoryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetUserHistoryQuery, GetUserHistoryQueryVariables>(GetUserHistoryDocument, options);
+      }
+export function useGetUserHistoryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUserHistoryQuery, GetUserHistoryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetUserHistoryQuery, GetUserHistoryQueryVariables>(GetUserHistoryDocument, options);
+        }
+export type GetUserHistoryQueryHookResult = ReturnType<typeof useGetUserHistoryQuery>;
+export type GetUserHistoryLazyQueryHookResult = ReturnType<typeof useGetUserHistoryLazyQuery>;
+export type GetUserHistoryQueryResult = Apollo.QueryResult<GetUserHistoryQuery, GetUserHistoryQueryVariables>;
 export const GetUserInfoDocument = gql`
     query GetUserInfo($userID: ID!) {
   GetUserInfo(userID: $userID) {

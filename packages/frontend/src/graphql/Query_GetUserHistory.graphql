@@ -1,0 +1,9 @@
+query GetUserHistory($userId: ID!) {
+  GetUserHistory(userID: $userId) {
+    date
+    cartitems {
+      itemCount
+      itemID
+    }
+  }
+}
