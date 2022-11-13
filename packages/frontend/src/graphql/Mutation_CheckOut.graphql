@@ -1,0 +1,9 @@
+mutation Purchase($userId: ID!, $date: String!, $cartitems: [CartItemInput]!) {
+  Purchase(userID: $userId, date: $date, cartitems: $cartitems) {
+    date
+    cartitems {
+      itemID
+      itemCount
+    }
+  }
+}

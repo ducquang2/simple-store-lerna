@@ -1,12 +1,13 @@
-import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/client'
+import { ApolloClient, ApolloProvider, gql, HttpLink, InMemoryCache } from '@apollo/client'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { setContext } from '@apollo/client/link/context'
 import React from 'react'
-import Cart from './components/Cart'
 import Header from './components/Header'
 import LogIn from './components/LogIn'
 import Product from './components/ProductList'
 import SignUp from './components/SignUp'
+import { CustomCache } from './cache'
+import { History } from './components/History'
 
 const link = new HttpLink({
   uri: 'http://localhost:4000/',
@@ -24,9 +25,23 @@ const authLink = setContext((_, { headers }) => {
   }
 })
 
+export const GetCartItems = gql`
+  query GetCartItems {
+    cartItems @client
+  }
+`
+
 const client = new ApolloClient({
   link: authLink.concat(link),
-  cache: new InMemoryCache(),
+  cache: CustomCache,
+  resolvers: {
+    Cart: {
+      isInCart: (item, _args, { cache }) => {
+        const { cartItems } = cache.readQuery({ query: GetCartItems })
+        return cartItems.includes(item.id)
+      },
+    },
+  },
 })
 
 function App() {
@@ -39,7 +54,7 @@ function App() {
             <Route path="/" element={<Product />} />
             <Route path="/signin" element={<LogIn />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/cart" element={<Cart />} />
+            <Route path="/history" element={<History />} />
           </Routes>
         </BrowserRouter>
       </ApolloProvider>

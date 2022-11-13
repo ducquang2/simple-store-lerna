@@ -1,5 +1,0 @@
-fragment Cart on Cart {
-  username
-  itemID
-  itemCount
-}

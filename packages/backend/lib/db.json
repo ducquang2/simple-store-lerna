@@ -1,1 +1,92 @@
-{"users":[{"username":"admin","password":"admin","id":"ef7670a2-3aa9-4145-b060-fffde5f05240","isadmin":true},{"username":"test","password":"test","id":"0a2a51aa-6bb2-4062-b627-e450e9f830d8","isadmin":false},{"username":"test1","password":"test1","id":"af4be33e-9c32-4992-b6fe-94a3da9355e6","isadmin":false}],"products":[{"id":"6941114c-a614-472a-b078-72a4d97920a7","name":"Hang 1","image":"Hinh 1","price":50},{"id":"1640c8b4-11f5-4ec4-aa89-eb626935a431","name":"Hang 2","image":"Hinh 2","price":100},{"id":"e4ef842a-bd97-463e-b12f-b7205c8c2afa","name":"Hang 3","image":"Hinh 3","price":200},{"id":"d79ea336-daea-42fa-8d7d-7dbea64158f4","name":"Hang 4","image":"Hinh 4","price":300},{"name":"Hang 5","image":"Hinh 5","price":500,"id":"bbb5de5a-9f48-4a40-acae-d3cc1be25abf"},{"name":"Hang 6","image":"Hinh 6","price":250,"id":"90922dcd-4805-483d-865f-0f738b2ac30f"},{"name":"Hang 7","image":"Hinh 7","price":150,"id":"962eceec-e813-4061-b5b2-ef38fdeee8ff"},{"name":"Hang 8","image":"Hinh 8","price":333,"id":"5e693443-74ab-48a4-a48d-f5e69265b90e"}],"carts":[{"username":"test","itemID":"962eceec-e813-4061-b5b2-ef38fdeee8ff","itemCount":10},{"username":"admin","itemID":"962eceec-e813-4061-b5b2-ef38fdeee8ff","itemCount":10},{"username":"admin","itemID":"bbb5de5a-9f48-4a40-acae-d3cc1be25abf","itemCount":3},{"username":"test","itemID":"bbb5de5a-9f48-4a40-acae-d3cc1be25abf","itemCount":6},{"username":"test","itemID":"5e693443-74ab-48a4-a48d-f5e69265b90e","itemCount":3},{"username":"test","itemID":"6941114c-a614-472a-b078-72a4d97920a7","itemCount":3},{"username":"admin","itemID":"90922dcd-4805-483d-865f-0f738b2ac30f","itemCount":1},{"username":"admin","itemID":"5e693443-74ab-48a4-a48d-f5e69265b90e","itemCount":1},{"username":"admin","itemID":"d79ea336-daea-42fa-8d7d-7dbea64158f4","itemCount":1},{"username":"admin","itemID":"1640c8b4-11f5-4ec4-aa89-eb626935a431","itemCount":1},{"username":"test","itemID":"1640c8b4-11f5-4ec4-aa89-eb626935a431","itemCount":1},{"username":"test","itemID":"90922dcd-4805-483d-865f-0f738b2ac30f","itemCount":1}]}
+{
+    "users": [
+        {
+            "username": "admin",
+            "password": "admin",
+            "id": "ef7670a2-3aa9-4145-b060-fffde5f05240",
+            "isadmin": true
+        },
+        {
+            "username": "test",
+            "password": "test",
+            "id": "0a2a51aa-6bb2-4062-b627-e450e9f830d8",
+            "isadmin": false
+        },
+        {
+            "username": "test1",
+            "password": "test1",
+            "id": "af4be33e-9c32-4992-b6fe-94a3da9355e6",
+            "isadmin": false
+        }
+    ],
+    "products": [
+        {
+            "id": "6941114c-a614-472a-b078-72a4d97920a7",
+            "name": "Hang 1",
+            "image": "Hinh 1",
+            "price": 50
+        },
+        {
+            "id": "1640c8b4-11f5-4ec4-aa89-eb626935a431",
+            "name": "Hang 2",
+            "image": "Hinh 2",
+            "price": 100
+        },
+        {
+            "id": "e4ef842a-bd97-463e-b12f-b7205c8c2afa",
+            "name": "Hang 3",
+            "image": "Hinh 3",
+            "price": 200
+        },
+        {
+            "id": "d79ea336-daea-42fa-8d7d-7dbea64158f4",
+            "name": "Hang 4",
+            "image": "Hinh 4",
+            "price": 300
+        },
+        {
+            "name": "Hang 5",
+            "image": "Hinh 5",
+            "price": 500,
+            "id": "bbb5de5a-9f48-4a40-acae-d3cc1be25abf"
+        },
+        {
+            "name": "Hang 6",
+            "image": "Hinh 6",
+            "price": 250,
+            "id": "90922dcd-4805-483d-865f-0f738b2ac30f"
+        },
+        {
+            "name": "Hang 7",
+            "image": "Hinh 7",
+            "price": 150,
+            "id": "962eceec-e813-4061-b5b2-ef38fdeee8ff"
+        },
+        {
+            "name": "Hang 8",
+            "image": "Hinh 8",
+            "price": 333,
+            "id": "5e693443-74ab-48a4-a48d-f5e69265b90e"
+        }
+    ],
+    "history": [
+        {
+            "userID": "0a2a51aa-6bb2-4062-b627-e450e9f830d8",
+            "purchased": [
+                {
+                    "date": "Sat Nov 12 2022 11:32:34 GMT+0700 (Indochina Time)",
+                    "cartitems": [
+                        {
+                            "itemID": "1640c8b4-11f5-4ec4-aa89-eb626935a431",
+                            "itemCount": 2
+                        },
+                        {
+                            "itemID": "bbb5de5a-9f48-4a40-acae-d3cc1be25abf",
+                            "itemCount": 2
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

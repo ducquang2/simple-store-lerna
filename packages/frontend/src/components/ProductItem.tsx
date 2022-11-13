@@ -1,39 +1,29 @@
+import { useReactiveVar } from '@apollo/client'
 import { useState } from 'react'
-import { CartFragmentDoc, useAddToCartMutation, useGetProfileQuery } from '../generated'
+import { cartItemVar } from '../cache'
+import { useGetProfileQuery } from '../generated'
+import { Button } from './Button'
+
+type cartItemType = {
+  itemID: string
+  itemCount: number
+}
 
 export default function ProductItem(product: { name: any; id: any; image: any; price: any }) {
   const { data } = useGetProfileQuery()
   const [itemCount, setItemCount] = useState(0)
 
-  const [addToCart, { error }] = useAddToCartMutation({
-    update(cache, { data: addcart }) {
-      cache.modify({
-        fields: {
-          carts(existingCart = []) {
-            //console.log(addcart)
-            const newCart = cache.writeFragment({
-              data: addcart,
-              fragment: CartFragmentDoc,
-            })
-            return [...existingCart, newCart]
-          },
-        },
-      })
-    },
-  })
+  const cartItems: cartItemType[] = useReactiveVar(cartItemVar)
 
-  const onHandleAddToCart = () => {
-    if (localStorage.getItem('token') === null) {
+  const onHandleAddToCart = (id: string) => {
+    if (!data?.GetProfile?.id) {
       throw Error('User must logged in')
     } else {
       if (itemCount > 0) {
-        addToCart({
-          variables: {
-            username: data?.GetProfile?.username as string,
-            itemID: product.id,
-            itemCount: itemCount,
-          },
-        })
+        let exist = cartItems.find((item) => item.itemID === id)
+        cartItemVar(
+          !exist ? [...cartItems, { itemID: product.id, itemCount: itemCount }] : cartItems
+        )
       }
     }
   }
@@ -52,9 +42,10 @@ export default function ProductItem(product: { name: any; id: any; image: any; p
             {product?.name}
           </h5>
         </a>
-        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{product?.price},000d</p>
+        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">${product?.price}</p>
         <div className="relative flex flex-wrap items-center justify-between gap-1">
-          <button
+          <Button
+            buttonClass="py-2 px-3"
             onClick={() => {
               if (itemCount <= 0) {
                 window.alert("Item count can't less than 0")
@@ -63,10 +54,9 @@ export default function ProductItem(product: { name: any; id: any; image: any; p
                 setItemCount(itemCount - 1)
               }
             }}
-            className="py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
             -
-          </button>
+          </Button>
           <input
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-10"
             required
@@ -80,20 +70,17 @@ export default function ProductItem(product: { name: any; id: any; image: any; p
               setItemCount(e.target.valueAsNumber)
             }}
           ></input>
-          <button
-            onClick={() => setItemCount(itemCount + 1)}
-            className="py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          >
+          <Button onClick={() => setItemCount(itemCount + 1)} buttonClass="py-2 px-3">
             +
-          </button>
-          <button
-            onClick={onHandleAddToCart}
-            className="flex flex-col lg:flex-row list-none lg:ml-auto py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-auto"
+          </Button>
+          <Button
+            onClick={() => onHandleAddToCart(product.id)}
+            buttonClass="flex flex-col lg:flex-row list-none lg:ml-auto py-2 px-3 text-sm font-medium text-center ml-auto"
           >
             Add to cart
-          </button>
+          </Button>
         </div>
-        {error && <span className="text-red-500">{error.message}</span>}
+        {/* {error && <span className="text-red-500">{error.message}</span>} */}
       </div>
     </div>
   )
